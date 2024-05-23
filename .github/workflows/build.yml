@@ -44,3 +44,14 @@ jobs:
           DOCKER_CLI_ACI: 1
         run: |
           docker run -d --name my-container anand010/netflix:latest
+
+  deploy:
+    needs: build-analyze-scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull the Docker image
+        run: docker pull anand010/netflix:latest
+      - name: Trivy image scan
+        run: trivy image anand010/netflix:latest
+      - name: Run the container netflix
+        run: docker run -d --name netflix -p 8081:80 anand010/netflix:latest
