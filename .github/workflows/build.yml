@@ -41,5 +41,6 @@ jobs:
           docker push anand010/netflix:latest
       - name: Run Docker container
         env:
-          DOCKER_CLI_ACI: 1|
-       
+          DOCKER_CLI_ACI: 1
+        run: |
+          docker run -d --name my-container anand010/netflix:latest
